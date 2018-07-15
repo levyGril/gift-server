@@ -62,7 +62,15 @@ export default class GiftController{
     @route("/getGiftById")
     @GET()
     async getGiftById(ctx, next){
-        const result = await this.giftService.getDataById(ctx.params.id);
+
+        //从上下文中直接获取
+        if(!ctx.querystring){
+            ctx.body = {data: "param error"};
+            return;
+        }
+        let ctx_querystring = querystring.parse(ctx.querystring);
+        console.log(Number(ctx_querystring.id));
+        const result = await this.giftService.getDataById(Number(ctx_querystring.id));
         ctx.body = {data: result};
     }
 

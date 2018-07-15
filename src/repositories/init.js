@@ -65,13 +65,14 @@ initDataBase.createStuffTable = function(tableName, db, callback) {
         return callback({data:createStuffTableErr});
     }else {
         db.run("CREATE TABLE IF NOT EXISTS  "+ tableName + "  (" +
-            "id          INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "name        varchar(100) ," +
-            "tel         varchar(11) ," +
-            "birth       varchar(50) ," +
-            "create_time varchar(100) " +
+            "id          INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "name        varchar(100) , " +
+            "tel         varchar(11) , " +
+            "birth       varchar(50), " +
+            "create_time  datetime default (datetime('now', 'localtime')) " +
             //"unique（name,birth,create_time) " +
             ") ");
+
         console.log("create stuff table success");
     }
     return callback({data:createStuffTableSucc});

@@ -2,6 +2,7 @@
  * Created by levy on 2018/7/5.
  */
 import { route, GET, POST,before } from 'awilix-koa'
+import querystring from 'querystring';
 
 @route("/api/stuff")
 export default class StuffController{
@@ -19,14 +20,28 @@ export default class StuffController{
     @route("/add")
     @GET()
     async addOne(ctx, next){
-        const result = await this.stuffService.add(ctx.params.name, ctx.params.tel, ctx.params.birth);
+
+        //从上下文中直接获取
+        if(!ctx.querystring){
+            ctx.body = {data: "param error"};
+            return;
+        }
+        let ctx_querystring = querystring.parse(ctx.querystring);
+
+        const result = await this.stuffService.add(ctx_querystring.name, ctx_querystring.tel, ctx_querystring.birth);
         ctx.body = {data: result};
     }
 
     @route("/getStuff")
     @GET()
     async getStuff(ctx, next){
-        const result = await this.stuffService.getData(ctx.params.name, ctx.params.tel);
+        //从上下文中直接获取
+        if(!ctx.querystring){
+            ctx.body = {data: "param error"};
+            return;
+        }
+        let ctx_querystring = querystring.parse(ctx.querystring);
+        const result = await this.stuffService.getData(ctx_querystring.name, ctx_querystring.tel);
         ctx.body = {data: result};
     }
 

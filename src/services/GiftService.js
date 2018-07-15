@@ -89,6 +89,7 @@ class GiftService{
 
     async getDataById(id){
         const sqltwo = "select * from gift_info where status = 0 and id = "+id;
+        console.log(sqltwo);
         return new Promise((resolve, reject)=>{
             sql.executeQuerySql(sqltwo, db, function (res) {
                 if(res.success){

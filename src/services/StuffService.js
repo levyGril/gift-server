@@ -27,16 +27,14 @@ class StuffService{
     async add(name, tel, birth){
         console.log(dateTime());
         let sqlone = "INSERT OR REPLACE  INTO stuff("+
-                     " name, tel, birth, create_time "+
-                     " ) VALUES (" +
+                     " name, tel, birth "+
+                     " ) VALUES ('" +
             name +
-            "," +
+            "', '" +
             tel +
-            "," +
+            "' , '" +
             birth +
-            "," +
-            dateTime() +
-            ")";
+            "' )";
         console.log(sqlone);
         return new Promise((resolve, reject)=>{
             sql.executeNoQuerySql(sqlone, db, function (res) {
@@ -52,10 +50,10 @@ class StuffService{
             throw err;
         });
     }
-    async getData(name, birth){
+    async getData(name, tel){
         let sqltwo = "select * from stuff where 1=1 ";
         if(!(name==""||name==undefined||name==null)){
-            sqltwo += " and name = '"+name+"' and birth = '"+birth+"'";
+            sqltwo += " and name = '"+name+"' and tel = '"+tel+"'";
         }
         console.log(sqltwo);
         return new Promise((resolve, reject)=>{
