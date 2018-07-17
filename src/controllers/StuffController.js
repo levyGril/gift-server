@@ -53,12 +53,12 @@ export default class StuffController{
     @GET()
     async getStuff(ctx, next){
         //从上下文中直接获取
-        if(!ctx.querystring){
-            ctx.body = {data: "param error"};
-            return;
-        }
+        // if(!ctx.querystring){
+        //     ctx.body = {data: "param error"};
+        //     return;
+        // }
         let ctx_querystring = querystring.parse(ctx.querystring);
-        const result = await this.stuffService.getData(ctx_querystring.name, ctx_querystring.tel);
+        const result = await this.stuffService.getData(ctx_querystring.name, ctx_querystring.tel, ctx_querystring.giftYear);
         ctx.body = {data: result};
     }
 
