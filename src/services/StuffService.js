@@ -45,6 +45,7 @@ class StuffService{
                     reject(res);
                 }
             });
+            db.close();
         }).then((res)=>{
             return res;
         }).catch(err=>{
@@ -66,6 +67,7 @@ class StuffService{
                     reject(res);
                 }
             });
+            db.close();
         }).then((res)=>{
             return res;
         }).catch(err=>{
