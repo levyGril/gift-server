@@ -10,7 +10,7 @@ const sqlite3 = require("sqlite3").verbose();
 //const propath = require('../dir/handle');
 
 // database file
-const file = "./lottery.db";
+const file = "./lottery1.db";
 
 //define error information
 const createGiftTableErr = 'errone';
@@ -69,6 +69,9 @@ initDataBase.createStuffTable = function(tableName, db, callback) {
             "name        varchar(100) , " +
             "tel         varchar(11) , " +
             "birth       varchar(50), " +
+            "gift_title  varchar(200), " +
+            "gift_id     int(5), " +
+            "gift_year   varchar(50), " +
             "create_time  datetime default (datetime('now', 'localtime')) " +
             //"unique（name,birth,create_time) " +
             ") ");

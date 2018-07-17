@@ -28,7 +28,24 @@ export default class StuffController{
         }
         let ctx_querystring = querystring.parse(ctx.querystring);
 
-        const result = await this.stuffService.add(ctx_querystring.name, ctx_querystring.tel, ctx_querystring.birth);
+        const result = await this.stuffService.add(ctx_querystring.name, ctx_querystring.tel, ctx_querystring.birth, ctx_querystring.giftYear);
+        ctx.body = {data: result};
+    }
+
+
+
+    @route("/updateStuff")
+    @GET()
+    async update(ctx, next){
+
+        //从上下文中直接获取
+        if(!ctx.querystring){
+            ctx.body = {data: "param error"};
+            return;
+        }
+        let ctx_querystring = querystring.parse(ctx.querystring);
+
+        const result = await this.stuffService.update(ctx_querystring.id, ctx_querystring.giftTitle, ctx_querystring.giftId);
         ctx.body = {data: result};
     }
 

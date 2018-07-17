@@ -24,16 +24,17 @@ class StuffService{
         });
     }
 
-    async add(name, tel, birth){
-        console.log(dateTime());
+    async add(name, tel, birth, giftYear){
         let sqlone = "INSERT OR REPLACE  INTO stuff("+
-                     " name, tel, birth "+
+                     " name, tel, birth , gift_year "+
                      " ) VALUES ('" +
             name +
             "', '" +
             tel +
             "' , '" +
             birth +
+            "', '" +
+            giftYear+
             "' )";
         console.log(sqlone);
         return new Promise((resolve, reject)=>{
@@ -50,10 +51,32 @@ class StuffService{
             throw err;
         });
     }
-    async getData(name, tel){
+
+
+    async update(id, giftTitle, giftId){
+        var sqlone =
+            `update stuff set gift_title = '${giftTitle}' , gift_id = '${giftId}'  where id = '${id}' `;
+        // var err = sql.executeNoQuerySql(sqlone, db);
+        console.log(sqlone);
+        return new Promise((resolve, reject)=>{
+            sql.executeNoQuerySql(sqlone, db, function (res) {
+                if(res.data.indexOf("succ")>-1){
+                    resolve(res);
+                }else{
+                    reject(res);
+                }
+            });
+        }).then((res)=>{
+            return res;
+        }).catch(err=>{
+            throw err;
+        });
+    }
+
+    async getData(name, tel,year){
         let sqltwo = "select * from stuff where 1=1 ";
         if(!(name==""||name==undefined||name==null)){
-            sqltwo += " and name = '"+name+"' and tel = '"+tel+"'";
+            sqltwo += " and name = '"+name+"' and tel = '"+tel+"' and gift_year = '"+year+"'";
         }
         console.log(sqltwo);
         return new Promise((resolve, reject)=>{
